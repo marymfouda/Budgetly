@@ -1,0 +1,31 @@
+﻿@model Budgetly.Models.Income
+
+@{
+    ViewData["Title"] = "حذف الدخل";
+}
+
+<h2 class="text-danger"><i class="bi bi-exclamation-triangle"></i> تأكيد الحذف</h2>
+
+<div class="card shadow-sm mt-3 border-danger">
+    <div class="card-body">
+        <p>هل أنت متأكد من حذف هذا الدخل؟</p>
+        <dl class="row">
+            <dt class="col-sm-3">المصدر</dt>
+            <dd class="col-sm-9">@Model.Source</dd>
+
+            <dt class="col-sm-3">المبلغ</dt>
+            <dd class="col-sm-9">@Model.Amount.ToString("N2") ج.م</dd>
+
+            <dt class="col-sm-3">التاريخ</dt>
+            <dd class="col-sm-9">@Model.Date.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> تأكيد الحذف
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+        </form>
+    </div>
+</div>

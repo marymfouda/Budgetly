@@ -1,5 +1,7 @@
 using Budgetly.Data;
 using Budgetly.Models;
+using Budgetly.Services;
+using Budgetly.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,9 +25,16 @@ namespace Budgetly
                     options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Services
+            builder.Services.AddScoped<IIncomeService, IncomeService>();
+            builder.Services.AddScoped<IExpenseService, ExpenseService>();
+            builder.Services.AddScoped<IBudgetCategoryService, BudgetCategoryService>();
+            builder.Services.AddScoped<IBudgetService, BudgetService>();
+            builder.Services.AddScoped<ISavingsGoalService, SavingsGoalService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages(); 
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
@@ -41,7 +50,7 @@ namespace Budgetly
 
             app.UseRouting();
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -50,7 +59,7 @@ namespace Budgetly
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
-            app.MapRazorPages(); 
+            app.MapRazorPages();
 
             app.Run();
         }
